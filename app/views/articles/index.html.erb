@@ -1,2 +1,14 @@
-<h1>Articles#index</h1>
-<p>Find me in app/views/articles/index.html.erb</p>
+<h1 class="font-bold text-3xl mb-3">Articles</h1>
+<div class="input-group m-2">
+  <%= form_with(url: articles_path, method: :get, data: {controller: "search-form", turbo_frame: "articles", turbo_action: "advance"}) do |form| %>
+    <%= form.label :query, "Search by article name:", class: "form-label" %>
+    <%= form.text_field :query, class: "form-control", data: {action: "input->search-form#search"} %>
+    <div class="d-grid gap-2">
+      <%= form.submit 'Search', class: "btn btn-primary m-1" %>
+    </div>
+  <% end %>
+</div>
+<div class="m-3">
+  <%= render "articles", articles: @articles %>
+</div>
+<%= link_to "New Article", new_article_path, class: "btn btn-primary" %>
